@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 import platform
+import re
 from collections import defaultdict
 
 import aiofiles
@@ -20,7 +21,14 @@ async def api_v1_write(user_details, result):
     tasks = list()
     user_name = user_details['user_name']
     for key, val in result.items():
-        tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key}.json', {**user_details, **{'contribution': val}}))
+        if key == 'LIFETIME' or key == 'LASTYEAR' or len(key) == 4:
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key}.json', {**user_details, **{'contribution': val}}))
+        elif len(key) == 6:
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:]}.json',
+                                     {**user_details, **{'contribution': val}}))
+        else:
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:6]}/{key[6:]}.json',
+                                     {**user_details, **{'contribution': val}}))
         if len(tasks) == 50:
             await asyncio.gather(*tasks)
             tasks.clear()
@@ -37,13 +45,13 @@ async def api_v1_update(year, url, session):
             for contrib in contributions:
                 if len(contrib.attrs) == 10:
                     return_dict[year] += int(contrib.attrs['data-count'])
-                    if year != 'LAST_YEAR':
+                    if year != 'LASTYEAR':
                         date = contrib.attrs['data-date'].replace('-', '')
                         return_dict[date[:6]] += int(contrib.attrs['data-count'])
                         return_dict[date] = int(contrib.attrs['data-count'])
                     # print(contrib.attrs['data-date'], contrib.attrs['data-count'], flush=True)
             # print(f'{year} : {total}', flush=True)
-    return return_dict, return_dict[year] if year != 'LAST_YEAR' else 0
+    return return_dict, return_dict[year] if year != 'LASTYEAR' else 0
 
 
 async def api_v1(user_name, session):
@@ -64,29 +72,32 @@ async def api_v1(user_name, session):
             # Form urls for each year including in the last year
             urls = [(year, GITHUB_URL + user_name + '?tab=overview&from=' + year + '-12-01&to=' + year + '-12-31')
                     for year in years_lst]
-            urls.append(('LAST_YEAR', GITHUB_URL + user_name))
+            urls.append(('LASTYEAR', GITHUB_URL + user_name))
             # Get the user's all api for each year
             results = await asyncio.gather(*[asyncio.ensure_future(api_v1_update(year, url, session))
                                              for year, url in urls])
             results.append(({'LIFETIME': sum([result[1] for result in results])}, 0))
             # Dump json to api/v1 directory
-            user_details = {'user_name': user_name, 'full_name': full_name}
+            user_details = {'username': user_name, 'fullname': full_name}
             # Create a directory for the user form os module
+            for year in years_lst:
+                for month in range(1, 13):
+                    os.makedirs(f'./api/v1/{user_name}/{year}/{month:02}', exist_ok=True)
             os.makedirs(f'./api/v1/{user_name}', exist_ok=True)
             await asyncio.gather(*[api_v1_write(user_details, result[0]) for result in results])
             # print(f'{full_name} : {results}', flush=True)
         else:
-            print(f'User not found : {user_name}', flush=True)
+            print(f'Some Issue occurred', flush=True)
 
 
 async def main():
     with open('contributors.md', 'r') as f:
-        users = list()
-        for line in f:
-            if line.strip().startswith('-'):
-                users.append(line.strip().split('-')[1].strip())
-        async with aiohttp.ClientSession() as session:
-            await asyncio.gather(*[api_v1(user, session) for user in users])
+        users = re.findall(r'@(\w+)', f.read(), re.MULTILINE)
+        if users:
+            print(f'Updating api for {len(users)} users', flush=True)
+            async with aiohttp.ClientSession() as session:
+                await asyncio.gather(*[api_v1(user, session) for user in users])
+    print('Completed updating', flush=True)
 
 
 if __name__ == '__main__':

@@ -43,6 +43,7 @@ jobs:
         env: 
           COMMENT_BODY: ${{ github.event.comment.body }}
         run: |
+          echo ${{ github.event.discussion.category.id }} 
           echo $COMMENT_BODY > last_comment.txt
           python validate_comment.py
           git config user.name github-actions

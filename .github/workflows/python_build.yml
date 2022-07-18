@@ -39,9 +39,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Update with python
       run: |
-        echo ${{ github.event_name }}
-        echo ${{ github.event.workflow_run.conclusion }}
-        echo ${{ github.event_name }}
+        echo Via ${{ github.event_name }}
         python get-contributions.py
         git config user.name github-actions
         git config user.email github-actions@github.com

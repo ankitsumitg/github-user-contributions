@@ -10,13 +10,16 @@ on:
     branches: [ "main" ]
   schedule:
     - cron:  '0 0 * * *'    # Runs at 00:00 UTC everyday
+  workflow_run:
+    workflows: [ "build_from_comment" ]
+    types:
+      - completed
 
 
 jobs:
   build:
-
+    if: ${{ github.event_name != 'discussion_comment' }} || (${{ github.event.workflow_run.conclusion == 'success' }} && ${{ github.event_name == 'discussion_comment' }})
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -34,7 +37,7 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Build with python
+    - name: Update with python
       run: |
         python get-contributions.py
         git config user.name github-actions
@@ -43,3 +46,4 @@ jobs:
         git commit -m "Update api folder v1" || echo "No changes to commit 🥵"
         git push
         echo "Bye 👋🏻"
+

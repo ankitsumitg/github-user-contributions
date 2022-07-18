@@ -1,5 +1,5 @@
-# github-user-contrubutions
-Gets github total contributions from a user profile each year without using github api
+# github-user-contributions
+Simple api which gets github total contributions for a user profile each year without using github api
 
 ## Contributors
 

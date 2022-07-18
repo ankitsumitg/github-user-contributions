@@ -19,7 +19,7 @@ async def api_v1_dump(file_path, data):
 
 async def api_v1_write(user_details, result):
     tasks = list()
-    user_name = user_details['user_name']
+    user_name = user_details['username']
     for key, val in result.items():
         if key == 'LIFETIME' or key == 'LASTYEAR' or len(key) == 4:
             tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key}.json', {**user_details, **{'contribution': val}}))
@@ -63,7 +63,7 @@ async def api_v1(user_name, session):
             soup = BeautifulSoup(user_page, 'html.parser')
             # Get the user's all years of api
             years = soup.find('ul', {'class': 'filter-list small'}).findAll('li')
-            # Full user name
+            # Full username
             full_name = soup.find('span', {'class': 'p-name vcard-fullname d-block overflow-hidden'}).text.strip()
             if not full_name:
                 full_name = user_name

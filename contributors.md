@@ -8,4 +8,3 @@
 - @canering
 - @davidtrovisco
 - @jorgebucaran
-- @idonotexist

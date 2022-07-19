@@ -22,12 +22,12 @@ async def api_v1_write(user_details, result):
     user_name = user_details['username']
     for key, val in result.items():
         if key == 'LIFETIME' or key == 'LASTYEAR' or len(key) == 4:
-            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key}.json', {**user_details, **{'contribution': val}}))
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key}', {**user_details, **{'contribution': val}}))
         elif len(key) == 6:
-            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:]}.json',
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:]}',
                                      {**user_details, **{'contribution': val}}))
         else:
-            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:6]}/{key[6:]}.json',
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:6]}/{key[6:]}',
                                      {**user_details, **{'contribution': val}}))
         if len(tasks) == 50:
             await asyncio.gather(*tasks)
@@ -73,13 +73,13 @@ async def api_v1(user_name, session):
             urls = [(year, GITHUB_URL + user_name + '?tab=overview&from=' + year + '-12-01&to=' + year + '-12-31')
                     for year in years_lst]
             urls.append(('LASTYEAR', GITHUB_URL + user_name))
-            # Get the user's all api for each year
+            # Get the user's all contribution for each year
             results = await asyncio.gather(*[asyncio.ensure_future(api_v1_update(year, url, session))
                                              for year, url in urls])
             results.append(({'LIFETIME': sum([result[1] for result in results])}, 0))
-            # Dump json to api/v1 directory
+            # Dump json inside api/v1 directory
             user_details = {'username': user_name, 'fullname': full_name}
-            # Create a directory for the user form os module
+            # Create a directory for the user
             for year in years_lst:
                 for month in range(1, 13):
                     os.makedirs(f'./api/v1/{user_name}/{year}/{month:02}', exist_ok=True)

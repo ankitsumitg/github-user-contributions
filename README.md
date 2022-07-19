@@ -3,7 +3,7 @@
 
 * Simple api to get GitHub `user contributions` ( No GitHub api key is needed ).
 * Simply use the raw json once your username is updated. ( Typically within a minute or so )
-
+* Any help/suggestions are welcome ⚡ 👍🏻
 ## Usage
 * Comment your username in the [discussion thread](https://github.com/ankitsumitg/github-user-contributions/discussions/1)
   * Format: `@username`

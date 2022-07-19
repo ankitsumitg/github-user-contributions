@@ -33,11 +33,11 @@
 
 ## Sample response for 1st example endpoint
 ```json
-{
-  "username": "ankitsumitg", 
-  "fullname": "Ankit Gupta", 
-  "contribution": 9
-}
+  {
+    "username": "ankitsumitg", 
+    "fullname": "Ankit Gupta", 
+    "contribution": 9
+  }
 ```
 
 ## Internal Working
@@ -46,7 +46,7 @@
 * And `python_build` workflow runs the script and updates the `user contributions`
 
 ## License
-![GitHub](https://img.shields.io/github/license/ankitsumitg/github-user-contributions?style=for-the-badge)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 ## Contributors
 <a href="https://github.com/ankitsumitg/github-user-contributions/graphs/contributors">

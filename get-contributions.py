@@ -22,12 +22,12 @@ async def api_v1_write(user_details, result):
     user_name = user_details['username']
     for key, val in result.items():
         if key == 'LIFETIME' or key == 'LASTYEAR' or len(key) == 4:
-            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key}', {**user_details, **{'contribution': val}}))
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key}.json', {**user_details, **{'contribution': val}}))
         elif len(key) == 6:
-            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:]}',
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:]}.json',
                                      {**user_details, **{'contribution': val}}))
         else:
-            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:6]}/{key[6:]}',
+            tasks.append(api_v1_dump(f'./api/v1/{user_name}/{key[:4]}/{key[4:6]}/{key[6:]}.json',
                                      {**user_details, **{'contribution': val}}))
         if len(tasks) == 50:
             await asyncio.gather(*tasks)

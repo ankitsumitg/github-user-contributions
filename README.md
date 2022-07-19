@@ -1,8 +1,8 @@
-# [GitHub User Contributions 👨🏻‍💻 ](https://github.com/ankitsumitg/github-user-contributions)
+# [GitHub User Contributions 👨🏻‍💻](https://github.com/ankitsumitg/github-user-contributions)
 <a href="https://github.com/ankitsumitg"><img src="https://img.shields.io/github/workflow/status/ankitsumitg/github-user-contributions/python_build?logo=github&style=for-the-badge" alt="GitHub Contrib"></a>
 
 * Simple api to get GitHub `user contributions` ( No GitHub api key is needed ).
-* Simply use the raw json once your username is updated. ( Typically within a minute or so )
+* Simply use the raw Json once your username is updated. ( Typically, within a minute or so )
 * Any help/suggestions are welcome ⚡ 👍🏻
 ## Usage
 * Comment your username in the [discussion thread](https://github.com/ankitsumitg/github-user-contributions/discussions/1)
@@ -44,6 +44,9 @@
 * Internally, the `github-user-contributions` is running a `python` script that crawls and scrapes the `skyline-contributions` from GitHub users page
 * Everything is happening is asynchronously
 * And `python_build` workflow runs the script and updates the `user contributions`
+
+## Notes
+* If a user had not made private contributions visible on GitHub profile, then only the `public contributions` will be counted
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)

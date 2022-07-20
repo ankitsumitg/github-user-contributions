@@ -13,7 +13,7 @@
   * Your contributions will be updated once workflow `completes`
 * Check the `end-points` with your username mentioned below
 * Since the response is in json, you can use it how-ever you like it!
-* Also, your contributions will be `updated at 00:00 UTC every day` 😀
+* Also, your contributions will be `updated every day at 00:00 UTC` 😀
 
 
 ## Endpoints
@@ -41,9 +41,9 @@
 ```
 
 ## Internal Working
-* Internally, the `github-user-contributions` is running a `python` script that crawls and scrapes the `skyline-contributions` from GitHub users page
-* Everything is happening is asynchronously
-* And `python_build` workflow runs the script and updates the `user contributions`
+* Internally, the `github-user-contributions` runs a `python` script that crawls and scrapes the `skyline-contributions` from GitHub users page
+* Everything happens asynchronously
+* `python_build` workflow runs the script and updates the `user contributions`
 
 ## Notes
 * If a user had not made private contributions visible on GitHub profile, then only the `public contributions` will be counted

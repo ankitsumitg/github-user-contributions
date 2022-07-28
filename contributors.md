@@ -9,3 +9,4 @@
 - @davidtrovisco
 - @jorgebucaran
 - @Sneazy101
+- @daniijal

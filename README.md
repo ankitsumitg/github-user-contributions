@@ -39,6 +39,16 @@
     "contribution": 9
   }
 ```
+## Support for [shields.io](https://shields.io) badge
+<img
+    src="https://img.shields.io/badge/dynamic/json?color=green&label=contribution&style=for-the-badge&logo=github&query=contribution&url=https%3A%2F%2Fraw.githubusercontent.com%2Fankitsumitg%2Fgithub-user-contributions%2Fmain%2Fapi%2Fv1%2Fankitsumitg%2FLIFETIME.json"
+    alt="Contribution Badge">
+```html
+<img src="https://img.shields.io/badge/dynamic/json?color=green&label=contribution&style=for-the-badge&logo=github&query=contribution&url=https://raw.githubusercontent.com/ankitsumitg/github-user-contributions/main/api/v1/username/LIFETIME.json" alt="Contribution Badge">
+```
+* Change the url parameter accordingly
+* Refer [shields.io](https://shields.io) Dynamic badge documentation to make the badge to your liking 😍
+
 
 ## Internal Working
 * Internally, the `github-user-contributions` is running a `python` script that crawls and scrapes the `skyline-contributions` from GitHub users page
@@ -55,3 +65,17 @@
 <a href="https://github.com/ankitsumitg/github-user-contributions/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ankitsumitg/github-user-contributions" />
 </a>
+
+# [GitHub User Contributions 👨🏻‍💻](https://github.com/ankitsumitg/github-user-contributions)
+
+* [GitHub Link](https://github.com/ankitsumitg/github-user-contributions)
+* Simply use the raw Json once your username is updated. (Typically, within a minute or so. See: [Usage](https://github.com/ankitsumitg/github-user-contributions#usage))
+* Any help/suggestions are welcome ⚡ 👍🏻
+* Would really appreciate any improvements/contributions 😊
+* Types
+   * Day Wise
+   * Month Wise
+   * Year Wise
+   * Since Last Year
+   * Lifetime
+* Do checkout 😊👍🏻

@@ -43,12 +43,15 @@ async def api_v1_update(year, url, session):
             soup = BeautifulSoup(user_page, 'html.parser')
             contributions = soup.findAll('rect', {'class': 'ContributionCalendar-day'})
             for contrib in contributions:
-                if len(contrib.attrs) == 10:
-                    return_dict[year] += int(contrib.attrs['data-count'])
+                if len(contrib.attrs) == 9:
+                    # return_dict[year] += int(contrib.attrs['data-count'])
+                    count_or_not = contrib.contents[0].split()[0]
+                    actual_count = int('0' if count_or_not == 'No' else count_or_not)
+                    return_dict[year] += actual_count
                     if year != 'LASTYEAR':
                         date = contrib.attrs['data-date'].replace('-', '')
-                        return_dict[date[:6]] += int(contrib.attrs['data-count'])
-                        return_dict[date] = int(contrib.attrs['data-count'])
+                        return_dict[date[:6]] += actual_count
+                        return_dict[date] = actual_count
                     # print(contrib.attrs['data-date'], contrib.attrs['data-count'], flush=True)
             # print(f'{year} : {total}', flush=True)
     return return_dict, return_dict[year] if year != 'LASTYEAR' else 0

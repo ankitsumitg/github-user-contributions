@@ -1,5 +1,5 @@
 # [GitHub User Contributions 👨🏻‍💻](https://github.com/ankitsumitg/github-user-contributions)
-<a href="https://github.com/ankitsumitg"><img src="https://img.shields.io/github/workflow/status/ankitsumitg/github-user-contributions/python_build?logo=github&style=for-the-badge" alt="GitHub Contrib"></a>
+<a href="https://github.com/ankitsumitg"><img src="https://img.shields.io/github/actions/workflow/status/ankitsumitg/github-user-contributions/python_build.yml?logo=github&style=for-the-badge" alt="GitHub Contrib"></a>
 
 * Simple api to get GitHub `user contributions` ( No GitHub api key is needed ).
 * Simply use the raw Json once your username is updated. ( Typically, within a minute or so )

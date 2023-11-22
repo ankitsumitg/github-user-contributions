@@ -42,10 +42,12 @@ async def api_v1_update(year, url, session):
             user_page = await resp.text()
             soup = BeautifulSoup(user_page, 'html.parser')
             contributions = soup.findAll('td', {'class': 'ContributionCalendar-day'})
-            for contrib in contributions:
-                if len(contrib.attrs) == 8:
+            contribution_text = list(filter(lambda x: x.attrs.get('for','').startswith('contribution-day-component'),
+                                     soup.findAll('tool-tip')))
+            for contrib, contrib_text in zip(contributions, contribution_text):
+                if len(contrib.attrs) == 11:
                     # return_dict[year] += int(contrib.attrs['data-count'])
-                    count_or_not = contrib.contents[0].string.split()[0]
+                    count_or_not = contrib_text.contents[0].string.split()[0]
                     actual_count = int('0' if count_or_not == 'No' else count_or_not)
                     return_dict[year] += actual_count
                     if year != 'LASTYEAR':

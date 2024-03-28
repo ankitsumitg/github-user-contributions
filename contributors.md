@@ -12,3 +12,4 @@
 - @daniijal
 - @MattTheTekie
 - @JamieCurnow
+- @pugson

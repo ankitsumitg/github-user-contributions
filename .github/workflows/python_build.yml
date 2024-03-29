@@ -40,9 +40,11 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Update with python
+      env: 
+        GH_TOKEN_CONTRIB_API: ${{ SECRETS.GH_TOKEN_CONTRIB_API }}
       run: |
         echo Via ${{ github.event_name }}
-        python get-contributions.py
+        python get-contributions-self.py
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add .

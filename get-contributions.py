@@ -42,7 +42,7 @@ async def api_v1_update(year, url, session):
             user_page = await resp.text()
             soup = BeautifulSoup(user_page, 'html.parser')
             contributions = soup.findAll('td', {'class': 'ContributionCalendar-day'})
-            contribution_text = list(filter(lambda x: x.attrs.get('for','').startswith('contribution-day-component'),
+            contribution_text = list(filter(lambda x: x.attrs.get('for', '').startswith('contribution-day-component'),
                                      soup.findAll('tool-tip')))
             for contrib, contrib_text in zip(contributions, contribution_text):
                 if len(contrib.attrs) == 11:
@@ -92,7 +92,7 @@ async def api_v1(user_name, session):
             await asyncio.gather(*[api_v1_write(user_details, result[0]) for result in results])
             # print(f'{full_name} : {results}', flush=True)
         else:
-            print(f'Some Issue occurred', flush=True)
+            print('Some Issue occurred', flush=True)
 
 
 async def main():

@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-async def get_commits_for_each_repo(username, token, header, repo_name, session):
+async def get_commits_for_each_repo(username, repo_name, session):
     total_commits = 0
     print(f'Getting total commits for {repo_name}')
     commits_url = f'https://api.github.com/repos/{username}/{repo_name}/commits?per_page=100'
@@ -48,8 +48,8 @@ async def get_total_commits(username, token):
         repositories_response = await session.get(repositories_url, params=None)
         repositories_json = await repositories_response.json()
         repositories = repositories_json['items']
-        all_commits_sum = sum(await asyncio.gather(*[get_commits_for_each_repo(username, token, headers, repo['name'],
-                                                                               session) for repo in repositories]))
+        all_commits_sum = sum(await asyncio.gather(*[get_commits_for_each_repo(username, repo['name'], session)
+                                                     for repo in repositories]))
 
     return all_commits_sum
 

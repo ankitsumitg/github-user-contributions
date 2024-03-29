@@ -1,6 +1,13 @@
 # [GitHub User Contributions 👨🏻‍💻](https://github.com/ankitsumitg/github-user-contributions)
 <a href="https://github.com/ankitsumitg"><img src="https://img.shields.io/github/actions/workflow/status/ankitsumitg/github-user-contributions/python_build.yml?logo=github&style=for-the-badge" alt="GitHub Contrib"></a>
 
+- I'm partially scaling back this project due to recent changes by GitHub in the way pages are fetched on GET requests, making it somewhat challenging to integrate new updates seamlessly.
+- I will utilize the GitHub API key to retrieve and store the count and this will be restricted to tracking personal lifetime count only.
+- Other people who want to use the lifetime count can fork the project and make changes accordingly.
+
+<details>
+  <summary>Old Part</summary>
+  
 * Simple api to get GitHub `user contributions` ( No GitHub api key is needed ).
 * Simply use the raw Json once your username is updated. ( Typically, within a minute or so )
 * Any help/suggestions are welcome ⚡ 👍🏻
@@ -79,3 +86,6 @@
    * Since Last Year
    * Lifetime
 * Do checkout 😊👍🏻
+
+ 
+</details>

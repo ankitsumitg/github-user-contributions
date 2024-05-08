@@ -12,7 +12,7 @@ load_dotenv()
 
 async def get_commits_for_each_repo(username, repo_name, session):
     total_commits = 0
-    print(f'Getting total commits for {repo_name}')
+    # print(f'Getting total commits for {repo_name}')
     commits_url = f'https://api.github.com/repos/{username}/{repo_name}/commits?per_page=100'
     # Fetch first page of commits
     commits_response = await session.get(commits_url, params=None)

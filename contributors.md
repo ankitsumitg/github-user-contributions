@@ -13,3 +13,4 @@
 - @MattTheTekie
 - @JamieCurnow
 - @pugson
+- @Chalandi
